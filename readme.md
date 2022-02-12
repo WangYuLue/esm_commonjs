@@ -710,9 +710,7 @@ module.exports = {
 
 刚刚我们实现了一个简单的 Module，但是能不能正常用还存疑。是骡子是马拉出来遛遛，我们用自己的 `MyModule` 来加载文件，看看能不能正常运行。
 
-<!-- TODO:加上仓库地址 -->
-
-可以查看 `demos/01`，代码的入口为 `app.js`:
+可以查看 [`demos/01`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/01)，代码的入口为 `app.js`:
 
 ```js
 const { MyRequire } = require('./myModule.js');
@@ -764,7 +762,7 @@ myModule.exports = {
 
 ### 用自定义的 MyModule 来测试循环引用
 
-在这之前，我们先看看原生的 module 模块的循环引用会发生什么异常。可以查看 `demos/02`，代码的入口为 `app.js`：
+在这之前，我们先看看原生的 module 模块的循环引用会发生什么异常。可以查看 [`demos/02`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/02)，代码的入口为 `app.js`：
 
 ```js
 require('./a.js')
@@ -839,7 +837,7 @@ TypeError: setA is not a function
 
 我们会发现一个 TypeError 的异常报错，提示 `setA is not a function`。这样的异常在预期之内，我们再试试自己实现的 `myModule` 的异常是否和原生 `module` 的行为一致。
 
-我们查看 `demos/03`，这里我们用自己的 `myModule` 来复现上面的循环引用，代码的入口为 `app.js`：
+我们查看 [`demos/03`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/03)，这里我们用自己的 `myModule` 来复现上面的循环引用，代码的入口为 `app.js`：
 
 ```js
 const { MyRequire } = require('./myModule.js');
@@ -1108,7 +1106,7 @@ export {
 
 在讲解ESM 的加载细节之前，我们要了解 ESM 中也存在 **变量提升** 和 **函数提升** ，意识到这一点非常重要。
 
-拿前面 `demo/02` 中提到的循环引用举例子，将其改造为 ESM 版的循环引用，查看 `demo/04`，代码的入口为 `app.js`：
+拿前面 [`demos/02`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/02) 中提到的循环引用举例子，将其改造为 ESM 版的循环引用，查看 [`demos/04`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/04)，代码的入口为 `app.js`：
 
 ```js
 import './a.mjs';
@@ -1180,7 +1178,7 @@ ReferenceError: Cannot access 'a' before initialization
 
 我们会发现一个 ReferenceError 的异常报错，提示不能在初始化之前使用变量。这是因为我们使用了 `let` 定义变量，使用了 `const` 定义函数，导致无法做变量和函数提升。
 
-怎么修改才能正常运行呢？其实很简单：用 `var` 代替 `let`，使用 function 来定义函数，我们查看 `demo/05` 来看效果：
+怎么修改才能正常运行呢？其实很简单：用 `var` 代替 `let`，使用 function 来定义函数，我们查看 [`demos/05`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/05) 来看效果：
 
 看看 `./a.mjs` 的代码：
 
@@ -1251,7 +1249,7 @@ setB to bb
 1. 加载文件后到**全局执行上下文**时，会有创建阶段和执行阶段，在创建阶段做函数和变量提升，接着执行代码。
 1. 返回这个 Module 实例的 exports
 
-结合 `demo/05` 的循环加载，我们再做一个详细的解释：
+结合 [`demos/05`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/02) 的循环加载，我们再做一个详细的解释：
 
 当 `app.mjs` 加载 `a.mjs` 时，Module 会检查缓存中有没有 `a.mjs`，发现没有，于是 new 一个 `a.mjs` 模块，并将这个模块放到缓存中，再去加载 `a.mjs` 文件本身。
 
