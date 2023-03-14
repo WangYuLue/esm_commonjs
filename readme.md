@@ -16,7 +16,7 @@
 
 ### CommonJS 产生的历史背景
 
-CommonJS 由 Mozilla 工程师 Kevin Dangoor 于 2009 年 1 月创立，最初命名为ServerJS。2009 年 8 月，该项目更名为CommonJS。旨在解决 Javascript 中缺少模块化标准的问题。
+CommonJS 由 Mozilla 工程师 Kevin Dangoor 于 2009 年 1 月创立，最初命名为 ServerJS。2009 年 8 月，该项目更名为 CommonJS。旨在解决 Javascript 中缺少模块化标准的问题。
 
 Node.js 后来也采用了 CommonJS 的模块规范。
 
@@ -110,16 +110,16 @@ Module {
 let val = 1;
 
 const setVal = (newVal) => {
-  val = newVal
-}
+  val = newVal;
+};
 
 module.exports = {
   val,
-  setVal
-}
+  setVal,
+};
 
 // b.js
-const { val, setVal } = require('./a.js')
+const { val, setVal } = require("./a.js");
 
 console.log(val);
 
@@ -140,20 +140,20 @@ console.log(val);
 ```js
 // a.js
 let obj = {
-  val: 1
+  val: 1,
 };
 
 const setVal = (newVal) => {
-  obj.val = newVal
-}
+  obj.val = newVal;
+};
 
 module.exports = {
   obj,
-  setVal
-}
+  setVal,
+};
 
 // b.js
-const { obj, setVal } = require('./a.js')
+const { obj, setVal } = require("./a.js");
 
 console.log(obj);
 
@@ -177,20 +177,20 @@ let val = 1;
 
 setTimeout(() => {
   val = 101;
-}, 100)
+}, 100);
 
 module.exports = {
-  val
-}
+  val,
+};
 
 // b.js
-const { val } = require('./a.js')
+const { val } = require("./a.js");
 
 console.log(val);
 
 setTimeout(() => {
   console.log(val);
-}, 200)
+}, 200);
 ```
 
 运行 `b.js`，输出结果为：
@@ -206,22 +206,22 @@ setTimeout(() => {
 // a.js
 setTimeout(() => {
   module.exports = {
-    val: 101
-  }
-}, 100)
+    val: 101,
+  };
+}, 100);
 
 module.exports = {
-  val: 1
-}
+  val: 1,
+};
 
 // b.js
-const a = require('./a.js')
+const a = require("./a.js");
 
 console.log(a);
 
 setTimeout(() => {
   console.log(a);
-}, 200)
+}, 200);
 ```
 
 运行 `b.js`，输出结果为：
@@ -237,18 +237,18 @@ setTimeout(() => {
 // a.js
 setTimeout(() => {
   module.exports.val = 101;
-}, 100)
+}, 100);
 
-module.exports.val = 1
+module.exports.val = 1;
 
 // b.js
-const a = require('./a.js')
+const a = require("./a.js");
 
 console.log(a);
 
 setTimeout(() => {
   console.log(a);
-}, 200)
+}, 200);
 ```
 
 运行 `b.js`,输出结果为：
@@ -266,25 +266,25 @@ setTimeout(() => {
 
 ```js
 const myModule = {
-  exports: {}
-}
+  exports: {},
+};
 
 let val = 1;
 
 const setVal = (newVal) => {
-  val = newVal
-}
+  val = newVal;
+};
 
 myModule.exports = {
   val,
-  setVal
-}
+  setVal,
+};
 
-const { val: useVal, setVal: useSetVal } = myModule.exports
+const { val: useVal, setVal: useSetVal } = myModule.exports;
 
 console.log(useVal);
 
-useSetVal(101)
+useSetVal(101);
 
 console.log(useVal);
 ```
@@ -293,27 +293,27 @@ console.log(useVal);
 
 ```js
 const myModule = {
-  exports: {}
-}
+  exports: {},
+};
 
 let obj = {
-  val: 1
+  val: 1,
 };
 
 const setVal = (newVal) => {
-  obj.val = newVal
-}
+  obj.val = newVal;
+};
 
 myModule.exports = {
   obj,
-  setVal
-}
+  setVal,
+};
 
-const { obj: useObj, setVal: useSetVal } = myModule.exports
+const { obj: useObj, setVal: useSetVal } = myModule.exports;
 
 console.log(useObj);
 
-useSetVal(101)
+useSetVal(101);
 
 console.log(useObj);
 ```
@@ -322,75 +322,74 @@ console.log(useObj);
 
 ```js
 const myModule = {
-  exports: {}
-}
+  exports: {},
+};
 
 let val = 1;
 
 setTimeout(() => {
   val = 101;
-}, 100)
+}, 100);
 
 myModule.exports = {
-  val
-}
+  val,
+};
 
-const { val: useVal } = myModule.exports
+const { val: useVal } = myModule.exports;
 
 console.log(useVal);
 
 setTimeout(() => {
   console.log(useVal);
-}, 200)
+}, 200);
 ```
 
 例四中，代码可以简化为：
 
 ```js
 const myModule = {
-  exports: {}
-}
+  exports: {},
+};
 
 setTimeout(() => {
   myModule.exports = {
-    val: 101
-  }
-}, 100)
-
+    val: 101,
+  };
+}, 100);
 
 myModule.exports = {
-  val: 1
-}
+  val: 1,
+};
 
-const useA = myModule.exports
+const useA = myModule.exports;
 
 console.log(useA);
 
 setTimeout(() => {
   console.log(useA);
-}, 200)
+}, 200);
 ```
 
 例五中，代码可以简化为：
 
 ```js
 const myModule = {
-  exports: {}
-}
+  exports: {},
+};
 
 setTimeout(() => {
   myModule.exports.val = 101;
-}, 100)
+}, 100);
 
 myModule.exports.val = 1;
 
-const useA = myModule.exports
+const useA = myModule.exports;
 
 console.log(useA);
 
 setTimeout(() => {
   console.log(useA);
-}, 200)
+}, 200);
 ```
 
 尝试运行上面的代码，可以发现和 CommonJS 输出的效果一致。所以 CommonJS 不是什么魔法，仅仅是日常写的最简简单单的 JS 代码。
@@ -400,11 +399,11 @@ setTimeout(() => {
 ```js
 let val = 1;
 module.exports = {
-  val
-}
+  val,
+};
 ```
 
-做的事情仅仅是给 `module.exports` 赋予了一个新的对象，在这个对象里有一个key叫做 `val`，这个 `val` 的值是当前模块中 `val` 的值，仅此而已。
+做的事情仅仅是给 `module.exports` 赋予了一个新的对象，在这个对象里有一个 key 叫做 `val`，这个 `val` 的值是当前模块中 `val` 的值，仅此而已。
 
 ### CommonJS 的具体实现
 
@@ -416,35 +415,36 @@ module.exports = {
 
 下面的实现主要参考了 node v4.x 中的实现，因为老版本相对更“干净”一些，更容易抓住细节。
 
-另外 [深入Node.js的模块加载机制，手写require函数](https://segmentfault.com/a/1190000023828613) 这篇文章写的也很不错，下面的实现很多也参考了这篇文章。
+另外 [深入 Node.js 的模块加载机制，手写 require 函数](https://segmentfault.com/a/1190000023828613) 这篇文章写的也很不错，下面的实现很多也参考了这篇文章。
 
-为了跟官方Module名字区分开，我们自己的类命名为MyModule：
+为了跟官方 Module 名字区分开，我们自己的类命名为 MyModule：
 
 ```js
-function MyModule(id = '') {
-  this.id = id;             // 模块路径
-  this.exports = {};        // 导出的东西放这里，初始化为空对象
-  this.loaded = false;      // 用来标识当前模块是否已经加载
+function MyModule(id = "") {
+  this.id = id; // 模块路径
+  this.exports = {}; // 导出的东西放这里，初始化为空对象
+  this.loaded = false; // 用来标识当前模块是否已经加载
 }
 ```
 
-#### require方法
+#### require 方法
 
-我们一直用的 `require` 其实是 Module 类的一个实例方法，内容很简单，先做一些参数检查，然后调用 Module._load 方法，源码在[这里](https://github.com/nodejs/node/blob/v4.0.0/lib/module.js#L362)，本示例为了简洁，去掉了一些判断：
+我们一直用的 `require` 其实是 Module 类的一个实例方法，内容很简单，先做一些参数检查，然后调用 Module.\_load 方法，源码在[这里](https://github.com/nodejs/node/blob/v4.0.0/lib/module.js#L362)，本示例为了简洁，去掉了一些判断：
 
 ```js
 MyModule.prototype.require = function (id) {
   return MyModule._load(id);
-}
+};
 ```
 
 `require` 是一个很简单函数，主要是包装了 `_load` 函数，这个函数主要做了如下事情：
 
 - 先检查请求的模块在缓存中是否已经存在了，如果存在了直接返回缓存模块的 `exports`
-- 如果不在缓存中，就创建一个 `Module` 实例，将该实例放到缓存中，用这个实例加载对应的模块，并返回模块的 `exports`
+- 如果不在缓存中，则创建一个 `Module` 实例，将该实例放到缓存中，用这个实例加载对应的模块，并返回模块的 `exports`
 
 ```js
-MyModule._load = function (request) {    // request是传入的路径
+MyModule._load = function (request) {
+  // request是传入的路径
   const filename = MyModule._resolveFilename(request);
 
   // 先检查缓存，如果缓存存在且已经加载，直接返回缓存
@@ -463,12 +463,12 @@ MyModule._load = function (request) {    // request是传入的路径
   module.load(filename);
 
   return module.exports;
-}
+};
 ```
 
 可以看到上述源码还调用了两个方法：`MyModule._resolveFilename` 和 `MyModule.prototype.load`，下面我们来实现下这两个方法。
 
-#### MyModule._resolveFilename
+#### MyModule.\_resolveFilename
 
 这个函数的作用是通过用户传入的 require 参数来解析到真正的文件地址，[源码](https://github.com/nodejs/node/blob/v4.0.0/lib/module.js#L321)中这个方法比较复杂，因为他要支持多种参数：内置模块，相对路径，绝对路径，文件夹和第三方模块等等。
 
@@ -477,7 +477,7 @@ MyModule._load = function (request) {    // request是传入的路径
 ```js
 MyModule._resolveFilename = function (request) {
   return path.resolve(request);
-}
+};
 ```
 
 #### MyModule.prototype.load
@@ -493,29 +493,29 @@ MyModule.prototype.load = function (filename) {
   MyModule._extensions[extname](this, filename);
 
   this.loaded = true;
-}
+};
 ```
 
-#### 加载文件: MyModule._extensions['X']
+#### 加载文件: MyModule.\_extensions['X']
 
 前面提到不同文件类型的处理方法都挂载在 `MyModule._extensions` 上，事实上 `node` 的加载器不仅仅可以加载 `.js` 模块，也可以加载 `.json` 和 `.node` 模块。本示例简单起见仅实现 `.js` 类型文件的加载：
 
 ```js
-MyModule._extensions['.js'] = function (module, filename) {
-  const content = fs.readFileSync(filename, 'utf8');
+MyModule._extensions[".js"] = function (module, filename) {
+  const content = fs.readFileSync(filename, "utf8");
   module._compile(content, filename);
-}
+};
 ```
 
-可以看到js的加载方法很简单，只是把文件内容读出来，然后调了另外一个实例方法 `_compile` 来执行他。对应的源码在[这里](https://github.com/nodejs/node/blob/v4.0.0/lib/module.js#L450)。
+可以看到 js 的加载方法很简单，只是把文件内容读出来，然后调了另外一个实例方法 `_compile` 来执行他。对应的源码在[这里](https://github.com/nodejs/node/blob/v4.0.0/lib/module.js#L450)。
 
-#### _compile 实现
+#### \_compile 实现
 
-`MyModule.prototype._compile` 是加载JS文件的核心所在，这个方法需要将目标文件拿出来执行一遍。对应的源码在[这里](https://github.com/nodejs/node/blob/v4.0.0/lib/module.js#L378)。
+`MyModule.prototype._compile` 是加载 JS 文件的核心所在，这个方法需要将目标文件拿出来执行一遍。对应的源码在[这里](https://github.com/nodejs/node/blob/v4.0.0/lib/module.js#L378)。
 
 `_compile` 主要做了如下事情：
 
-1、执行之前需要将它整个代码包裹一层，以便注入 `exports`, `require`, `module`, `__dirname`, `__filename`，这也是我们能在JS文件里面直接使用这几个变量的原因。要实现这种注入也不难，假如我们 require 的文件是一个简单的 `Hello World`，长这样：
+1、执行之前需要将它整个代码包裹一层，以便注入 `exports`, `require`, `module`, `__dirname`, `__filename`，这也是我们能在 JS 文件里面直接使用这几个变量的原因。要实现这种注入也不难，假如我们 require 的文件是一个简单的 `Hello World`，长这样：
 
 ```js
 module.exports = "hello world";
@@ -529,20 +529,22 @@ function (module) { // 注入module变量，其实几个变量同理
 }
 ```
 
-nodeJS 也是这样实现的，在[node源码](https://github.com/nodejs/node/blob/v4.0.0/src/node.js#L932)里，会有这样的代码：
+nodeJS 也是这样实现的，在[node 源码](https://github.com/nodejs/node/blob/v4.0.0/src/node.js#L932)里，会有这样的代码：
 
 ```js
-NativeModule.wrap = function(script) {
+NativeModule.wrap = function (script) {
   return NativeModule.wrapper[0] + script + NativeModule.wrapper[1];
 };
 
 NativeModule.wrapper = [
-  '(function (exports, require, module, __filename, __dirname) { ',
-  '\n});'
+  "(function (exports, require, module, __filename, __dirname) { ",
+  "\n});",
 ];
 ```
 
-这样通过MyModule.wrap包装的代码就可以获取到 `exports`, `require`, `module`, `__filename`, `__dirname` 这几个变量了。
+这样通过 MyModule.wrap 包装的代码就可以获取到 `exports`, `require`, `module`, `__filename`, `__dirname` 这几个变量了。
+
+> 注意这里的字符串模版用了两个括号包起来，是因为该模版最终会放入 vm.runInThisContext 执行生成函数，用括号包起来后才会返回该函数。
 
 2、放入沙盒里执行包装好的代码，并返回模块的 export。沙盒执行使用了 node 的 `vm` 模块。
 
@@ -557,21 +559,21 @@ MyModule.prototype._compile = function (content, filename) {
   // vm是nodejs的虚拟机沙盒模块，runInThisContext方法可以接受一个字符串并将它转化为一个函数
   // 返回值就是转化后的函数，所以compiledWrapper是一个函数
   const compiledWrapper = vm.runInThisContext(wrapper, {
-    filename
+    filename,
   });
-  const dirname = path.dirname(filename);
 
+  const dirname = path.dirname(filename);
   const args = [self.exports, self.require, self, filename, dirname];
   return compiledWrapper.apply(self.exports, args);
-}
+};
 ```
 
 `wrapper` 和 `warp` 的实现如下：
 
 ```js
 MyModule.wrapper = [
-  '(function (myExports, myRequire, myModule, __filename, __dirname) { ',
-  '\n});'
+  "(function (myExports, myRequire, myModule, __filename, __dirname) { ",
+  "\n});",
 ];
 
 MyModule.wrap = function (script) {
@@ -583,18 +585,18 @@ MyModule.wrap = function (script) {
 
 #### 最后生成一个实例并导出
 
-最后我们 new 一个 `MyModule` 的实理并导出，方便外面使用：
+最后我们 new 一个 `MyModule` 的实例并导出，方便外面使用：
 
 ```js
 const myModuleInstance = new MyModule();
 const MyRequire = (id) => {
   return myModuleInstance.require(id);
-}
+};
 
 module.exports = {
   MyModule,
-  MyRequire
-}
+  MyRequire,
+};
 ```
 
 #### 完整代码
@@ -602,22 +604,22 @@ module.exports = {
 最后的完整代码如下：
 
 ```js
-const path = require('path');
-const vm = require('vm');
-const fs = require('fs');
+const path = require("path");
+const vm = require("vm");
+const fs = require("fs");
 
-function MyModule(id = '') {
-  this.id = id;             // 模块路径
-  this.exports = {};        // 导出的东西放这里，初始化为空对象
-  this.loaded = false;      // 用来标识当前模块是否已经加载
+function MyModule(id = "") {
+  this.id = id; // 模块路径
+  this.exports = {}; // 导出的东西放这里，初始化为空对象
+  this.loaded = false; // 用来标识当前模块是否已经加载
 }
 
 MyModule._cache = {};
 MyModule._extensions = {};
 
 MyModule.wrapper = [
-  '(function (myExports, myRequire, myModule, __filename, __dirname) { ',
-  '\n});'
+  "(function (myExports, myRequire, myModule, __filename, __dirname) { ",
+  "\n});",
 ];
 
 MyModule.wrap = function (script) {
@@ -626,9 +628,10 @@ MyModule.wrap = function (script) {
 
 MyModule.prototype.require = function (id) {
   return MyModule._load(id);
-}
+};
 
-MyModule._load = function (request) {    // request是传入的路径
+MyModule._load = function (request) {
+  // request是传入的路径
   const filename = MyModule._resolveFilename(request);
 
   // 先检查缓存，如果缓存存在且已经加载，直接返回缓存
@@ -649,11 +652,11 @@ MyModule._load = function (request) {    // request是传入的路径
   module.load(filename);
 
   return module.exports;
-}
+};
 
 MyModule._resolveFilename = function (request) {
   return path.resolve(request);
-}
+};
 
 MyModule.prototype.load = function (filename) {
   // 获取文件后缀名
@@ -663,39 +666,38 @@ MyModule.prototype.load = function (filename) {
   MyModule._extensions[extname](this, filename);
 
   this.loaded = true;
-}
+};
 
-
-MyModule._extensions['.js'] = function (module, filename) {
-  var content = fs.readFileSync(filename, 'utf8');
+MyModule._extensions[".js"] = function (module, filename) {
+  var content = fs.readFileSync(filename, "utf8");
   module._compile(content, filename);
 };
 
 MyModule.prototype._compile = function (content, filename) {
   var self = this;
   // 获取包装后函数体
-  const wrapper = MyModule.wrap(content);    
+  const wrapper = MyModule.wrap(content);
 
   // vm是nodejs的虚拟机沙盒模块，runInThisContext方法可以接受一个字符串并将它转化为一个函数
   // 返回值就是转化后的函数，所以compiledWrapper是一个函数
   const compiledWrapper = vm.runInThisContext(wrapper, {
-    filename
+    filename,
   });
   const dirname = path.dirname(filename);
 
   const args = [self.exports, self.require, self, filename, dirname];
   return compiledWrapper.apply(self.exports, args);
-}
+};
 
 const myModuleInstance = new MyModule();
 const MyRequire = (id) => {
   return myModuleInstance.require(id);
-}
+};
 
 module.exports = {
   MyModule,
-  MyRequire
-}
+  MyRequire,
+};
 ```
 
 #### 题外话：源代码中的 require 是如何实现的?
@@ -704,7 +706,7 @@ module.exports = {
 
 这似乎产生是先有鸡还是先有蛋的悖论，我还没把你造出来，你怎么就用起来了？
 
-事实上，源码中的 `require` 有另外简单的实现，它被定义在 `src/node.js` 中，源码在[这里]([源码](https://github.com/nodejs/node/blob/v4.0.0/src/node.js#L861-L949))。
+事实上，源码中的 `require` 有另外简单的实现，它被定义在 `src/node.js` 中，源码在[这里](https://github.com/nodejs/node/blob/v4.0.0/src/node.js#L861-L949)。
 
 ### 用自定义的 MyModule 来加载文件
 
@@ -713,15 +715,15 @@ module.exports = {
 可以查看 [`demos/01`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/01)，代码的入口为 `app.js`:
 
 ```js
-const { MyRequire } = require('./myModule.js');
+const { MyRequire } = require("./myModule.js");
 
-MyRequire('./b.js');
+MyRequire("./b.js");
 ```
 
 `b.js` 的代码如下：
 
 ```js
-const { obj, setVal } = myRequire('./a.js')
+const { obj, setVal } = myRequire("./a.js");
 
 console.log(obj);
 
@@ -736,17 +738,17 @@ console.log(obj);
 
 ```js
 let obj = {
-  val: 1
+  val: 1,
 };
 
 const setVal = (newVal) => {
-  obj.val = newVal
-}
+  obj.val = newVal;
+};
 
 myModule.exports = {
   obj,
-  setVal
-}
+  setVal,
+};
 ```
 
 可以看到现在我们用 `myModule` 取代 `module` 来导出模块。
@@ -765,57 +767,57 @@ myModule.exports = {
 在这之前，我们先看看原生的 module 模块的循环引用会发生什么异常。可以查看 [`demos/02`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/02)，代码的入口为 `app.js`：
 
 ```js
-require('./a.js')
+require("./a.js");
 ```
 
 看看 `./a.js` 的代码：
 
 ```js
-const { b, setB } = require('./b.js');
+const { b, setB } = require("./b.js");
 
-console.log('running a.js');
+console.log("running a.js");
 
-console.log('b val', b);
+console.log("b val", b);
 
-console.log('setB to bb');
+console.log("setB to bb");
 
-setB('bb')
+setB("bb");
 
-let a = 'a';
+let a = "a";
 
 const setA = (newA) => {
   a = newA;
-}
+};
 
 module.exports = {
   a,
-  setA
-}
+  setA,
+};
 ```
 
 再看看 `./b.js` 的代码：
 
 ```js
-const { a, setA } = require('./a.js');
+const { a, setA } = require("./a.js");
 
-console.log('running b.js');
+console.log("running b.js");
 
-console.log('a val', a);
+console.log("a val", a);
 
-console.log('setA to aa');
+console.log("setA to aa");
 
-setA('aa')
+setA("aa");
 
-let b = 'b';
+let b = "b";
 
 const setB = (newB) => {
   b = newB;
-}
+};
 
 module.exports = {
   b,
-  setB
-}
+  setB,
+};
 ```
 
 可以看到 `./a.js` 和 `./b.js` 在文件的开头都相互引用了对方。
@@ -840,59 +842,59 @@ TypeError: setA is not a function
 我们查看 [`demos/03`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/03)，这里我们用自己的 `myModule` 来复现上面的循环引用，代码的入口为 `app.js`：
 
 ```js
-const { MyRequire } = require('./myModule.js');
+const { MyRequire } = require("./myModule.js");
 
-MyRequire('./a.js');
+MyRequire("./a.js");
 ```
 
 `a.js` 的代码如下：
 
 ```js
-const { b, setB } = myRequire('./b.js');
+const { b, setB } = myRequire("./b.js");
 
-console.log('running a.js');
+console.log("running a.js");
 
-console.log('b val', b);
+console.log("b val", b);
 
-console.log('setB to bb');
+console.log("setB to bb");
 
-setB('bb')
+setB("bb");
 
-let a = 'a';
+let a = "a";
 
 const setA = (newA) => {
   a = newA;
-}
+};
 
 myModule.exports = {
   a,
-  setA
-}
+  setA,
+};
 ```
 
 再看看 `./b.js` 的代码：
 
 ```js
-const { a, setA } = myRequire('./a.js');
+const { a, setA } = myRequire("./a.js");
 
-console.log('running b.js');
+console.log("running b.js");
 
-console.log('a val', a);
+console.log("a val", a);
 
-console.log('setA to aa');
+console.log("setA to aa");
 
-setA('aa')
+setA("aa");
 
-let b = 'b';
+let b = "b";
 
 const setB = (newB) => {
   b = newB;
-}
+};
 
 myModule.exports = {
   b,
-  setB
-}
+  setB,
+};
 ```
 
 可以看到现在我们用 `myRequire` 取代了 `require`，用 `myModule` 取代了 `module`。
@@ -941,7 +943,7 @@ module.load(filename);
 
 但是其实这个时候 `a.js` 根本还没有执行完，还没走到 `module.exports` 那一步，所以 `b.js` 中 `require('./a.js')` 返回的只是一个默认的空对象。所以最终会报 `setA is not a function` 的异常。
 
-说到这里，那如何设计会导致“死锁”呢？其实也很简单 —— 将  **放到缓存中** 与 **加载文件** 的执行顺序互换，在我们的 `MyModule` 代码中，也就是这样写：
+说到这里，那如何设计会导致“死锁”呢？其实也很简单 —— 将 **放到缓存中** 与 **加载文件** 的执行顺序互换，在我们的 `MyModule` 代码中，也就是这样写：
 
 ```js
 module.load(filename);
@@ -994,10 +996,10 @@ JavaScript 执行过程分为两个阶段:
 
 ```js
 console.log(msg);
-add(1,2)
+add(1, 2);
 
-var msg = 'hello'
-function add(a,b){
+var msg = "hello";
+function add(a, b) {
   return a + b;
 }
 ```
@@ -1013,15 +1015,15 @@ function add(a,b){
 这类错误很常见，例如栈溢出就是 `RangeError`；
 
 ```js
-function a () {
-  b()
+function a() {
+  b();
 }
-function b () {
-  a()
+function b() {
+  a();
 }
-a()
+a();
 
-// out: 
+// out:
 // RangeError: Maximum call stack size exceeded
 ```
 
@@ -1030,9 +1032,9 @@ a()
 `ReferenceError` 也很常见，打印一个不存在的值就是 `ReferenceError`：
 
 ```js
-hello
+hello;
 
-// out: 
+// out:
 // ReferenceError: hello is not defined
 ```
 
@@ -1055,7 +1057,7 @@ console.log(1));
 
 ```js
 var a = 1;
-a()
+a();
 
 // out:
 // TypeError: a is not a function
@@ -1072,10 +1074,10 @@ ESM 之所以被称为 `编译时输出接口`，是因为它的模块解析是�
 例如，根据 ES6 规范，`import` 只能在模块顶层声明，所以下面的写法会直接报语法错误，不会有 log 打印，因为它压根就没有进入 **执行阶段**：
 
 ```js
-console.log('hello world');
+console.log("hello world");
 
 if (true) {
-  import { resolve } from 'path';
+  import { resolve } from "path";
 }
 
 // out:
@@ -1086,7 +1088,7 @@ if (true) {
 
 与此对应的 CommonJS，它的模块解析发生在 **执行阶段**，因为 `require` 和 `module` 本质上就是个函数或者对象，只有在 **执行阶段** 运行时，这些函数或者对象才会被实例化。因此被称为 `运行时加载`。
 
-这里要特别强调，**与CommonJS 不同，ESM 中 `import` 的不是对象， `export` 的也不是对象**。例如，下面的写法会提示语法错误：
+这里要特别强调，**与 CommonJS 不同，ESM 中 `import` 的不是对象， `export` 的也不是对象**。例如，下面的写法会提示语法错误：
 
 ```js
 // 语法错误！这不是解构！！！
@@ -1104,62 +1106,56 @@ export {
 
 ### ESM 的加载细节
 
-在讲解ESM 的加载细节之前，我们要了解 ESM 中也存在 **变量提升** 和 **函数提升** ，意识到这一点非常重要。
+在讲解 ESM 的加载细节之前，我们要了解 ESM 中也存在 **变量提升** 和 **函数提升** ，意识到这一点非常重要。
 
 拿前面 [`demos/02`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/02) 中提到的循环引用举例子，将其改造为 ESM 版的循环引用，查看 [`demos/04`](https://github.com/WangYuLue/esm_commonjs/tree/main/demos/04)，代码的入口为 `app.js`：
 
 ```js
-import './a.mjs';
+import "./a.mjs";
 ```
 
 看看 `./a.mjs` 的代码：
 
 ```js
-import { b, setB } from './b.mjs';
+import { b, setB } from "./b.mjs";
 
-console.log('running a.mjs');
+console.log("running a.mjs");
 
-console.log('b val', b);
+console.log("b val", b);
 
-console.log('setB to bb');
+console.log("setB to bb");
 
-setB('bb')
+setB("bb");
 
-let a = 'a';
+let a = "a";
 
 const setA = (newA) => {
   a = newA;
-}
+};
 
-export {
-  a,
-  setA
-}
+export { a, setA };
 ```
 
 再看看 `./b.mjs` 的代码：
 
 ```js
-import { a, setA } from './a.mjs';
+import { a, setA } from "./a.mjs";
 
-console.log('running b.mjs');
+console.log("running b.mjs");
 
-console.log('a val', a);
+console.log("a val", a);
 
-console.log('setA to aa');
+console.log("setA to aa");
 
-setA('aa')
+setA("aa");
 
-let b = 'b';
+let b = "b";
 
 const setB = (newB) => {
   b = newB;
-}
+};
 
-export {
-  b,
-  setB
-}
+export { b, setB };
 ```
 
 可以看到 `./a.mjs` 和 `./b.mjs` 在文件的开头都相互引用了对方。
@@ -1183,48 +1179,41 @@ ReferenceError: Cannot access 'a' before initialization
 看看 `./a.mjs` 的代码：
 
 ```js
+console.log("b val", b);
 
-console.log('b val', b);
+console.log("setB to bb");
 
-console.log('setB to bb');
+setB("bb");
 
-setB('bb')
-
-var a = 'a';
+var a = "a";
 
 function setA(newA) {
   a = newA;
 }
 
-export {
-  a,
-  setA
-}
+export { a, setA };
 ```
 
 再看看 `./b.mjs` 的代码：
 
 ```js
-import { a, setA } from './a.mjs';
+import { a, setA } from "./a.mjs";
 
-console.log('running b.mjs');
+console.log("running b.mjs");
 
-console.log('a val', a);
+console.log("a val", a);
 
-console.log('setA to aa');
+console.log("setA to aa");
 
-setA('aa')
+setA("aa");
 
-var b = 'b';
+var b = "b";
 
 function setB(newB) {
   b = newB;
 }
 
-export {
-  b,
-  setB
-}
+export { b, setB };
 ```
 
 执行 `node app.mjs` 查看运行结果：
@@ -1274,14 +1263,14 @@ return compiledWrapper.apply(self.exports, args);
 
 而 ESM 由于语言层面的设计指向的是 `undefined`。
 
-#### 不同点：__filename，__dirname 在 CommonJS 中存在，在 ESM 中不存在
+#### 不同点：**filename**，**dirname** 在 CommonJS 中存在，在 ESM 中不存在
 
-在 CommonJS 中，模块的执行需要用函数包起来，并指定一些常用的值，可以查看[源码]([node源码](https://github.com/nodejs/node/blob/v4.0.0/src/node.js#L932)：
+在 CommonJS 中，模块的执行需要用函数包起来，并指定一些常用的值，可以查看[源码]([node 源码](https://github.com/nodejs/node/blob/v4.0.0/src/node.js#L932)：
 
 ```js
 NativeModule.wrapper = [
-  '(function (exports, require, module, __filename, __dirname) { ',
-  '\n});'
+  "(function (exports, require, module, __filename, __dirname) { ",
+  "\n});",
 ];
 ```
 
@@ -1294,14 +1283,14 @@ NativeModule.wrapper = [
 ### 参考文档
 
 - [阮一峰：Module 的加载实现](https://es6.ruanyifeng.com/#docs/module-loader#ES6-%E6%A8%A1%E5%9D%97%E4%B8%8E-CommonJS-%E6%A8%A1%E5%9D%97%E7%9A%84%E5%B7%AE%E5%BC%82)
-- [深入Node.js的模块加载机制，手写require函数](https://segmentfault.com/a/1190000023828613)
+- [深入 Node.js 的模块加载机制，手写 require 函数](https://segmentfault.com/a/1190000023828613)
 - [commonjs 与 esm 的区别](https://juejin.cn/post/6844903861166014478)
 - [The Node.js Way - How `require()` Actually Works](http://fredkschott.com/post/2014/06/require-and-the-module-system/)
 - [stackoverflow:How does require() in node.js work?](https://stackoverflow.com/questions/9475792/how-does-require-in-node-js-work)
-- [Node模块加载机制：展示了一些魔改 require 的场景](http://www.ayqy.net/blog/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/#articleHeader6)
+- [Node 模块加载机制：展示了一些魔改 require 的场景](http://www.ayqy.net/blog/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/#articleHeader6)
 - [docs: ES 模块和 CommonJS 之间的差异](http://nodejs.cn/api/esm.html#differences-between-es-modules-and-commonjs)
 - [Requiring modules in Node.js: Everything you need to know](https://www.freecodecamp.org/news/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8/)
 - [JavaScript Execution Context and Hoisting Explained with Code Examples](https://www.freecodecamp.org/news/javascript-execution-context-and-hoisting/)
-- [深入了解JavaScript执行过程（JS系列之一）](https://blog.csdn.net/wexin_37276427/article/details/105028116)
-- [JS执行过程详解](https://segmentfault.com/a/1190000039380905)
+- [深入了解 JavaScript 执行过程（JS 系列之一）](https://blog.csdn.net/wexin_37276427/article/details/105028116)
+- [JS 执行过程详解](https://segmentfault.com/a/1190000039380905)
 - [7 Types of Native Errors in JavaScript You Should Know](https://blog.bitsrc.io/types-of-native-errors-in-javascript-you-must-know-b8238d40e492)
